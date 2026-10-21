@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Card Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f0f4f9;
+        }
+        .card-gradient {
+            background: linear-gradient(135deg, #2558e8 0%, #3143d6 50%, #312eb8 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start pt-10 pb-16 px-4">
+
+    <div class="w-full max-w-md text-center mb-8">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1d4ed8] tracking-tight mb-2">
+            Student Card<br>Generator
+        </h1>
+        <p class="text-[#64748b] text-base font-medium">
+            Create your own digital student card!
+        </p>
+    </div>
+
+    <div class="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100/80 mb-8">
+        <form id="cardForm" class="space-y-5" onsubmit="event.preventDefault(); generateCard();">
+            <div>
+                <label class="block text-[#1e293b] font-bold text-base mb-2">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-600 text-slate-800 placeholder-slate-400 font-medium">
+            </div>
+
+            <div>
+                <label class="block text-[#1e293b] font-bold text-base mb-2">School Name</label>
+                <input type="text" id="schoolName" placeholder="Enter your school" class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-600 text-slate-800 placeholder-slate-400 font-medium">
+            </div>
+
+            <div>
+                <label class="block text-[#1e293b] font-bold text-base mb-2">Course of Study</label>
+                <input type="text" id="courseName" placeholder="Enter your course" class="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-600 text-slate-800 placeholder-slate-400 font-medium">
+            </div>
+
+            <button type="submit" class="w-full py-3.5 px-4 bg-[#2563eb] hover:bg-blue-700 active:scale-[0.99] transition text-white font-bold text-base rounded-xl shadow-sm">
+                Generate My Card
+            </button>
+        </form>
+
+        <p id="errorMessage" class="text-[#dc2626] font-semibold text-center text-sm mt-4 hidden">
+            Please fill in the all fields.
+        </p>
+    </div>
+
+    <div id="outputContainer" class="w-full max-w-md hidden">
+        <h2 class="text-2xl font-bold text-[#1e293b] text-center mb-6">
+            Your Student Card
+        </h2>
+
+        <div class="w-full card-gradient text-white rounded-3xl p-7 shadow-lg relative overflow-hidden min-h-[260px] flex flex-col justify-between">
+            <div class="space-y-2">
+                <h3 id="cardName" class="text-2xl sm:text-3xl font-extrabold text-white leading-snug break-words"></h3>
+                <p id="cardSchool" class="text-slate-200 text-base font-medium pt-1"></p>
+                <p id="cardCourse" class="text-slate-200 text-base font-medium"></p>
+            </div>
+
+            <div class="mt-6 space-y-4">
+                <p id="cardNo" class="text-slate-200 text-base font-medium">Card No: SC-2026</p>
+                
+                <div>
+                    <span class="inline-block border border-white/80 text-white text-xs font-bold px-4 py-1.5 rounded-full tracking-wider uppercase">
+                        STUDENT
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateCard() {
+            const name = document.getElementById('fullName').value.trim();
+            const school = document.getElementById('schoolName').value.trim();
+            const course = document.getElementById('courseName').value.trim();
+            const errorMsg = document.getElementById('errorMessage');
+            const output = document.getElementById('outputContainer');
+
+            if (!name || !school || !course) {
+                errorMsg.classList.remove('hidden');
+                output.classList.add('hidden');
+            } else {
+                errorMsg.classList.add('hidden');
+                document.getElementById('cardName').innerText = name;
+                document.getElementById('cardSchool').innerText = school;
+                document.getElementById('cardCourse').innerText = course;
+                output.classList.remove('hidden');
+                output.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+      </html>
